@@ -2,6 +2,9 @@ window.onload = () => {
   fetchData();
 };
 
+let method = "POST";
+let endpoint = "https://striveschool-api.herokuapp.com/api/movies";
+
 const options = {
   method: "GET",
   headers: {
@@ -33,8 +36,6 @@ const fetchData = async () => {
       options
     );
     const data = await response.json();
-    console.log(data);
-    // data.forEach(createCards(data, newRow));
     data.forEach((movie, index) => {
       createMoviesList(movie, newRow, index);
     });
@@ -60,14 +61,11 @@ const createMoviesList = (movie, newRow, index) => {
 `;
 };
 
-const inputId = document.getElementById("movie-id");
-const value = inputId.innerText;
-console.log(value);
-const endpoint =
-  value === ""
-    ? "https://striveschool-api.herokuapp.com/api/movies"
-    : "https://striveschool-api.herokuapp.com/api/movies" + value;
-const method = value === "" ? "POST" : "PUT";
+// const endpoint =
+//   value === ""
+//     ? "https://striveschool-api.herokuapp.com/api/movies"
+//     : "https://striveschool-api.herokuapp.com/api/movies" + value;
+// const method = value === "" ? "POST" : "PUT";
 
 const handleSubmit = async () => {
   const newProductObject = {
@@ -121,7 +119,7 @@ const handleDelete = async (movie) => {
     );
 
     const deletedObj = await response.json();
-    alert("Event DELETED, id was: " + deletedObj._id);
+    alert("Movie DELETED, id was: " + deletedObj._id);
     window.location.assign("/backoffice.html");
   }
 };
@@ -152,4 +150,11 @@ const handleEdit = async (movie) => {
   const actionButton = document.querySelector(".add-button");
   actionButton.style.backgroundColor = "green";
   actionButton.innerText = "Edit Movie";
+  const inputId = document.getElementById("movie-id");
+  const value = inputId.value;
+  console.log(value);
+  if (value !== "") {
+    method = "PUT";
+    endpoint = "https://striveschool-api.herokuapp.com/api/movies/" + value;
+  }
 };

@@ -45,7 +45,7 @@ const createCards = (movie, newRow) => {
   newRow.innerHTML += `
   <div class="col-sm-6 col-md-4 col-xl-3 mt-2">
   <div class="card bg-dark text-white">
-  <a href="details.html"><img src=${movie.imageUrl} class="card-img" alt="..."></a>
+  <a href="details.html?eventId=${movie._id}"><img src=${movie.imageUrl} class="card-img" alt="..."></a>
 </div>
 </div>
  `;
